@@ -31,6 +31,11 @@ class RESTApiResourceEpg extends RESTApiCollection
             throw new RESTBadRequest("ch_id required");
         }
 
+        $desc = $request->getParam('desc');
+        if (!empty($desc)){
+            $this->fields_map["descr"] = true;
+        }
+
         $ch_ids = explode(',', $this->nested_params['ch_id']);
 
         $epg_data = array();

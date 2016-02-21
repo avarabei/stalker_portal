@@ -13,10 +13,12 @@ class AccountInfo implements \Stalker\Lib\StbApi\AccountInfo
         $oss_info = $user->getInfoFromOSS();
 
         $info = array(
+            'login' => $user->getProfileParam('login'),
             'fname' => $user->getProfileParam('fname'),
             'phone' => $user->getProfileParam('phone'),
             'ls'    => $user->getProfileParam('ls'),
-            'mac'   => $user->getProfileParam('mac')
+            'mac'   => $user->getProfileParam('mac'),
+            'xtream_password' => $user->getProfileParam('xtream_password')
         );
 
         if (is_array($oss_info)){

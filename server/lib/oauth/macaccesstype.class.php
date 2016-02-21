@@ -68,7 +68,7 @@ class MACAccessType extends AccessTokenType
 
         $this_delta = time() - $this->ts;
 
-        if (($time_delta - $this_delta) > 3 || ($time_delta - $this_delta) < 3){
+        if (($time_delta - $this_delta) > 3 || ($time_delta - $this_delta) < -3){
             throw new AuthUnauthorized("Delta time very suspicious");
         }
 

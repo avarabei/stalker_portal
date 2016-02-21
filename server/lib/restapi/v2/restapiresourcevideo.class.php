@@ -12,6 +12,7 @@ class RESTApiResourceVideo extends RESTApiCollection
     private   $not_ended = array();
     private   $video_id;
     private   $genres_ids;
+    private   $category_id;
 
     public function __construct(array $nested_params, array $external_params){
 
@@ -22,7 +23,7 @@ class RESTApiResourceVideo extends RESTApiCollection
         $this->document->controllers->add(new RESTApiVideoNotEnded($this->nested_params));
 
         $this->fields_map = array_fill_keys(array('id', "name", "description", "director", "actors", "year",
-            "censored", "added", "genres", "genres_ids", "cover", "hd"), true);
+            "censored", "added", "genres", "genres_ids", "cover", "hd", "country", "time"), true);
         $this->manager = new \Video();
 
         if (!empty($this->nested_params['users.id'])){
@@ -39,11 +40,18 @@ class RESTApiResourceVideo extends RESTApiCollection
             $this->not_ended = $user_obj->getNotEndedVideo();
         }
 
+        $prettyId = true;
+
+        if (!empty($this->nested_params['video.category']) && is_numeric($this->nested_params['video.category'])) {
+            $this->category_id = $this->nested_params['video.category'];
+            $prettyId = false;
+        }
+
         if (!empty($this->nested_params['video.category']) && empty($this->nested_params['video.genre'])){
             $category_id = $this->nested_params['video.category'];
 
             $genre  = new \VideoGenre();
-            $genres = $genre->getByCategoryId($category_id, true);
+            $genres = $genre->getByCategoryId($category_id, $prettyId);
 
             if (empty($genres)){
                 throw new RESTNotFound("Genres list is empty");
@@ -69,7 +77,7 @@ class RESTApiResourceVideo extends RESTApiCollection
             $this->genres_ids = $genres;
         }else if(!empty($this->nested_params['video.genre']) && !empty($this->nested_params['video.category'])){
             $genre  = new \VideoGenre();
-            $genres = $genre->getByIdAndCategory($this->nested_params['video.genre'], $this->nested_params['video.category'], true);
+            $genres = $genre->getByIdAndCategory($this->nested_params['video.genre'], $this->nested_params['video.category'], $prettyId);
 
             if (empty($genres)){
                 throw new RESTNotFound("Genres list is empty");
@@ -108,6 +116,10 @@ class RESTApiResourceVideo extends RESTApiCollection
 
         if (!empty($this->video_id)){
             $raw_videos->where(array('id' => $this->video_id));
+        }
+
+        if (!empty($this->category_id)){
+            $raw_videos->where(array('category_id' => $this->category_id));
         }
 
         if (!empty($this->genres_ids)){

@@ -129,6 +129,21 @@ class User implements \Stalker\Lib\StbApi\User
         return $this->profile['serial_number'] = $serial_number;
     }
 
+
+    public function setMac($mac){
+
+        if ($this->profile['mac'] != $mac){
+            Mysql::getInstance()->update('users',
+                array(
+                    'mac' => $mac
+                ),
+                array('id' => $this->id)
+            );
+        }
+
+        return $this->profile['mac'] = $mac;
+    }
+
     public function resetAccessToken($token = ''){
 
         return Mysql::getInstance()->update('users',

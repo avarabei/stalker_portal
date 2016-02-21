@@ -1318,6 +1318,7 @@ class TvChannelsController extends \Controller\BaseStalkerController {
                     ))
                 ->add('allow_pvr', 'checkbox', array('required' => false))
                 ->add('xmltv_id', 'text', array('required' => false))
+                ->add('xtream', 'text', array('required' => false))
                 ->add('correct_time', 'text', array(
                     'constraints' => new Assert\Range(array('min' => -720, 'max' => 840))
                     ))

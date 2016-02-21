@@ -11,14 +11,14 @@ class RESTApiResourceVideoCategories extends RESTApiCollection
 
     public function getCount(RESTApiRequest $request){
         $categories = new \VideoCategory();
-        return count($categories->getAll(true));
+        return count($categories->getAll());
     }
 
     public function get(RESTApiRequest $request){
         $categories = new \VideoCategory();
         $categories->setLocale($request->getLanguage());
 
-        return $this->filter($categories->getAll(true));
+        return $this->filter($categories->getAll());
     }
 
     private function filter($categories){

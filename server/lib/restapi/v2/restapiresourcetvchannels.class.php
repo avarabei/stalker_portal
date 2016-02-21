@@ -22,7 +22,7 @@ class RESTApiResourceTvChannels extends RESTApiCollection
         $this->document->controllers->add(new RESTApiTvChannelRecord($this->nested_params));
         $this->controllers->add(new RESTApiTvChannelLast($this->nested_params));
 
-        $this->fields_map = array_fill_keys(array('id', "name", "number", "archive", "censored"), true);
+        $this->fields_map = array_fill_keys(array('id', "name", "number", "archive", "censored", "xtream"), true);
 
         $this->manager = \Itv::getInstance();
 

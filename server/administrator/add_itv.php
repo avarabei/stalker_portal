@@ -280,6 +280,7 @@ if (!$error){
                 'tv_genre_id'                 => @$_POST['tv_genre_id'],
                 'status'                      => 1,
                 'xmltv_id'                    => @$_POST['xmltv_id'],
+                'xtream'                      => @$_POST['xtream'],
                 'service_id'                  => trim($_POST['service_id']),
                 'volume_correction'           => intval($_POST['volume_correction']),
                 'correct_time'                => intval($_POST['correct_time']),
@@ -392,6 +393,7 @@ if (!$error){
                     'descr'                       => $_POST['descr'],
                     'tv_genre_id'                 => $_POST['tv_genre_id'],
                     'xmltv_id'                    => $_POST['xmltv_id'],
+                    'xtream'                      => $_POST['xtream'],
                     'service_id'                  => trim($_POST['service_id']),
                     'volume_correction'           => intval($_POST['volume_correction']),
                     'correct_time'                => intval($_POST['correct_time']),
@@ -1073,6 +1075,7 @@ echo "<th class='list'><b>"._('Service code')."</b></th>";
 echo "<th class='list'><b>"._('Name')."</b></th>";
 echo "<th class='list'><b>"._('URL')."</b></th>";
 echo "<th class='list'><b>"._('xmltv id')."</b></th>";
+echo "<th class='list'><b>"._('xtream')."</b></th>";
 echo "<th class='list'><b>"._('Genre')."</b></th>";
 echo "<th class='list'><b>"._('Archive')."</b></th>";
 echo "<th class='list'><b>"._('Volume correction')."</b></th>";
@@ -1121,6 +1124,7 @@ while ($arr = $all_channels->next()){
     echo "</td>";
     echo "<td class='list'>".$arr['cmd']."</td>";
     echo "<td class='list'>".$arr['xmltv_id']."</td>";
+    echo "<td class='list'>".$arr['xtream']."</td>";
     echo "<td class='list'>".(!empty($arr['genres_name'])? _($arr['genres_name']): '----')."</td>";
     echo "<td class='list' align='center'>".($arr['enable_tv_archive'] == 1 ? '&bull;' : '')."</td>";
     echo "<td class='list'>".$arr['volume_correction']."</td>";
@@ -1168,6 +1172,7 @@ if (@$_GET['edit']){
         $cost     = $arr['cost'];
         $hd       = $arr['hd'];
         $xmltv_id = $arr['xmltv_id'];
+        $xtream   = $arr['xtream'];
         $service_id = $arr['service_id'];
         $volume_correction = $arr['volume_correction'];
         $correct_time = $arr['correct_time'];
@@ -1280,6 +1285,7 @@ if (@$_GET['edit']){
     $descr  = @$_POST['descr'];
     $cost   = @$_POST['cost'];
     $xmltv_id   = @$_POST['xmltv_id'];
+    $xtream     = @$_POST['xtream'];
     $service_id = @$_POST['service_id'];
     $volume_correction = @$_POST['volume_correction'];
     $correct_time   = @$_POST['correct_time'];
@@ -1727,6 +1733,14 @@ function delete_logo(id){
            </td>
            <td>
             <input id="xmltv_id" name="xmltv_id" size="50" type="text" value="<? echo @$xmltv_id ?>">
+           </td>
+        </tr>
+        <tr>
+           <td align="right">
+            xtream:
+           </td>
+           <td>
+            <input id="xtream" name="xtream" size="50" type="text" value="<? echo @$xtream ?>">
            </td>
         </tr>
         <tr>
